@@ -1,0 +1,27 @@
+eval_kwargs:
+  logprobs: 4
+  max_tokens: 64
+  metric_marker: QUESTIONS
+  metric_max_tokens: 512
+  metric_prompt_dir: prompts/pairwise_metric_gen.txt
+  n: 1
+  reference_marker: REFERENCE
+  reference_max_tokens: 1024
+  reference_prompt_dir: prompts/pairwise_reference_gen.txt
+  temperature: 0.0
+  top_p: 1.0
+  use_cache: true
+  auxiliary_input_len: 3072
+eval_method: base_pairwise_metric_reference
+instruction_marker: INSTRUCTION
+max_input_len: 4000
+max_model_len: 4096
+output_marker: OUTPUT
+parse_method: base_pairwise
+parse_with_tokenizer: false
+pattern: Output \((\S+)\)
+prompt_method: pairwise_metric_reference_swap
+sys1_marker: a
+sys2_marker: b
+fdir_kwargs: # extra fdirs
+  cache_dir: 'results/cache/{dataset}_{model}/'

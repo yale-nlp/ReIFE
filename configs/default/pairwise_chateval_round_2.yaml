@@ -1,0 +1,36 @@
+# model configs
+max_input_len: 7424
+max_model_len: 8192
+
+# eval config
+eval_method: 'pairwise_chateval'
+prompt_method: 'pairwise_chateval'
+instruction_marker: 'INSTRUCTION'
+output_marker: 'OUTPUT'
+
+# parse config
+parse_method: 'base_pairwise_cot'
+sys1_marker: 'a'
+sys2_marker: 'b'
+pattern: 'Output \((\S+)\) is better'
+parse_with_tokenizer: false
+
+eval_kwargs:
+  temperature: 0.0
+  top_p: 1.0
+  n: 1
+  max_tokens: 768
+  logprobs: 1
+  use_cache: true
+  num_rounds: 2
+  random_role_order: false
+  first_message_dir: 'prompts/chateval_initial_prompt.txt'
+  role_descriptions:
+    - 'prompts/chateval_util_general_public.txt'
+    - 'prompts/chateval_util_scientist.txt'
+    - 'prompts/chateval_util_critic.txt'
+
+fdir_kwargs: 
+  cache_dir: 'results/cache/{dataset}_{model}/'
+
+file_ext: 'round_2'

@@ -1,0 +1,21 @@
+eval_kwargs:
+  num_assistants: 5
+
+eval_method: protocol_vote
+parse_method: majority_vote
+
+fdir_kwargs:
+  evaluator1_dir: results/{dataset}.{model}.base_pairwise.pairwise_vanilla.jsonl
+  evaluator2_dir: results/{dataset}.{model}.base_pairwise.pairwise_cot.jsonl
+  evaluator3_dir: results/{dataset}.{model}.base_pairwise_metric.pairwise_metric.jsonl
+  evaluator4_dir: results/{dataset}.{model}.base_pairwise_reference.pairwise_reference.jsonl
+  evaluator5_dir: results/{dataset}.{model}.base_pairwise_metric_reference.pairwise_metric_reference.jsonl
+
+# dummy parameters, not used
+instruction_marker: INSTRUCTION
+output_marker: OUTPUT
+parse_with_tokenizer: false
+pattern: Output \((\S+)\)
+prompt_method: majority_vote
+sys1_marker: a
+sys2_marker: b

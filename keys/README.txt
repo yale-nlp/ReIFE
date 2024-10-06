@@ -1,0 +1,1 @@
+This is the directory where the API keys and other sensitive information are stored.

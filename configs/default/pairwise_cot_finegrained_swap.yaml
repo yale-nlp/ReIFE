@@ -1,0 +1,17 @@
+eval_kwargs:
+  logprobs: 1
+  max_tokens: 1024
+  n: 1
+  temperature: 0.0
+  top_p: 1.0
+eval_method: base_pairwise
+instruction_marker: INSTRUCTION
+max_input_len: 4096
+max_model_len: 5280
+output_marker: OUTPUT
+parse_method: base_pairwise_cot
+parse_with_tokenizer: false
+pattern: 'Output \((\S+)\) is better'
+prompt_method: pairwise_cot_finegrained_swap
+sys1_marker: a
+sys2_marker: b

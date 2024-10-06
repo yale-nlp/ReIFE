@@ -1,0 +1,27 @@
+# model configs
+max_input_len: 3584
+max_model_len: 4096
+
+# eval config
+eval_method: 'pairwise_multi_aspect_single_stage'
+prompt_method: 'pairwise_multi_aspect_aggregate_single_stage_swap'
+instruction_marker: 'INSTRUCTION'
+output_marker: 'OUTPUT'
+
+# parse config
+parse_method: 'base_pairwise_cot'
+sys1_marker: 'a'
+sys2_marker: 'b'
+pattern: 'Output \((\S+)\) is better'
+parse_with_tokenizer: false
+
+eval_kwargs:
+  temperature: 0.0
+  top_p: 1.0
+  n: 1
+  max_tokens: 512
+  logprobs: 1
+  use_cache: false
+
+fdir_kwargs:
+  cache_dir: 'results/cache/{dataset}_{model}/'

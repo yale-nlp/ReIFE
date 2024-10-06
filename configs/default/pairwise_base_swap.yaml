@@ -1,0 +1,17 @@
+eval_kwargs:
+  logprobs: 4
+  max_tokens: 64
+  n: 1
+  temperature: 0.0
+  top_p: 1.0
+eval_method: base_pairwise
+instruction_marker: INSTRUCTION
+max_input_len: 4000
+max_model_len: 4096
+output_marker: OUTPUT
+parse_method: base_pairwise
+parse_with_tokenizer: false
+pattern: Output \((\S+)\)
+prompt_method: pairwise_vanilla_swap
+sys1_marker: a
+sys2_marker: b
