@@ -19,7 +19,7 @@ class TestAPI(unittest.TestCase):
             initial_wait_time=1,
             end_wait_time=1,
             max_retries=2,
-            key_path=os.path.join(home_dir, "llmeval_bench/keys/google.key"),
+            key_path=os.path.join(home_dir, "insteval_bench/keys/google.key"),
             account_path=None,  # not needed
         )
         message = [{"role": "user", "content": "Introduce yourself in one sentence."}]
@@ -48,8 +48,8 @@ class TestAPI(unittest.TestCase):
             initial_wait_time=1,
             end_wait_time=1,
             max_retries=2,
-            key_path=os.path.join(home_dir, "llmeval_bench/keys/openai.key"),
-            account_path=os.path.join(home_dir, "llmeval_bench/keys/openai.org"),
+            key_path=os.path.join(home_dir, "insteval_bench/keys/openai.key"),
+            account_path=os.path.join(home_dir, "insteval_bench/keys/openai.org"),
         )
         message = [{"role": "user", "content": "Introduce yourself in one sentence."}]
         response = model.get_response(
@@ -80,7 +80,7 @@ class TestAPI(unittest.TestCase):
             initial_wait_time=1,
             end_wait_time=1,
             max_retries=2,
-            key_path=os.path.join(home_dir, "llmeval_bench/keys/cohere.key"),
+            key_path=os.path.join(home_dir, "insteval_bench/keys/cohere.key"),
             account_path=None,  # not needed
         )
         message = [{"role": "user", "content": "Introduce yourself in one sentence."}]
