@@ -1,0 +1,33 @@
+<|im_start|>system
+You are a helpful assistant who makes a final decision on which output is better based on the analysis of multiple aspects.
+<|im_end|>
+
+<|im_start|>user
+You have been provided with an instruction and two outputs, along with an analysis of each output based on several key aspects.
+
+Your task is to carefully consider the analysis for each aspect and make a final decision on which output is better overall. Provide a brief explanation of your evaluation, weighing the importance of each aspect, and make a final decision. Be mindful of the importance of each aspect item in the context of the given instruction task, because some aspects may significantly influence the output's quality and relevance to the instruction, while others might be less critical.
+
+Here are some rules of the evaluation:
+(1) You should prioritize evaluating whether the output honestly/precisely/closely executes the instruction, then consider its helpfulness, accuracy, level of detail, harmlessness, etc.
+(2) Outputs should NOT contain more/less than what the instruction asks for, as such outputs do NOT precisely execute the instruction.
+(3) You should avoid any potential bias and your judgment should be as objective as possible. For example, the order in which the outputs were presented should NOT affect your judgment, as Output (a) and Output (b) are **equally likely** to be the better.
+
+You should first provide an explanation of your evaluation, and then always end your response with either "Therefore, Output (a) is better." or "Therefore, Output (b) is better." verbatim.
+Do NOT say both / neither are good.
+Do NOT output any other words.
+Do NOT say "Output (a) is better" or "Output (b) is better" at the beginning. You should do reasoning and thinking **before** claiming which is better.
+
+# Instruction
+{INSTRUCTION}
+
+# Output (b):
+{OUTPUT_2}
+
+# Output (a):
+{OUTPUT_1}
+
+# Here are the aspect-wise analyses provided by another helpful critic:
+{ANALYSIS_HISTORY}
+
+# Decision (Give a brief explanation of your evaluation followed by either "Therefore, Output (a) is better." or "Therefore, Output (b) is better." verbatim. Always claim which is better at the end. In your explanation, you should always use "Output (a)" or "Output (b)" to refer to the two outputs respectively.):
+<|im_end|>

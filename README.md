@@ -5,17 +5,33 @@ This repo contains the code for our work "Measuring Progress in Evaluating Instr
 ## Quick Links
 
 - [Getting Started](#getting-started)
+- [Datasets](#datasets)
 - [Folder Structure](#folder-structure)
     - [Important Files](#important-files)
-- [Example: Evaluating a new LLM-evaluator](#example-evaluating-a-new-llm-evaluator)
-    - [Step 1: Add a new LLM](#step-1-add-a-new-llm)
-    - [Step 2: Add a new evaluation method](#step-2-add-a-new-evaluation-method)
+- [Evaluating a new LLM-evaluator](#evaluating-a-new-llm-evaluator)
+    - [Step 1: Add a new base LLM](#step-1-add-a-new-base-llm)
+    - [Step 2: Add a new evaluation protocol](#step-2-add-a-new-evaluation-protocol)
         - [Evaluator](#evaluator)
         - [Evaluation Method and Parser](#evaluation-method-and-parser)
         - [Adding Prompts](#adding-prompts)
     - [Step 3: Run the evaluation](#step-3-run-the-evaluation)
     - [Step 4: Meta-evaluation](#step-4-meta-evaluation)
 - [Demo](#demo)
+
+## Datasets
+
+The evaluation results of our work can be accessed as a Hugging Face Dataset: [yale-nlp/InstEvalBench](https://huggingface.co/datasets/yale-nlp/InstEvalBench).
+
+It contains two subsets: `src` and `predictions`. The `src` subset contains the source datasets for evaluating LLM-evaluators. The `predictions` subset contains the evaluation results of the LLM-evaluators.
+
+The source datasets are from the following previous works (please cite them if you use the datasets):
+- [LLMBar](https://github.com/princeton-nlp/LLMBar?tab=readme-ov-file#hugging-face-datasets)
+- [MTBench](https://github.com/lm-sys/FastChat/tree/main/fastchat/llm_judge#datasets)
+- [InstruSum](https://github.com/yale-nlp/InstruSum?tab=readme-ov-file#benchmark-dataset)
+
+The `predictions` subset contains the evaluation results of the 450 LLM-evaluators, consisting of 25 base LLMs and 18 evaluation protocols. The evaluation results are in the JSONL format. Each line is a JSON object containing the evaluation results of an LLM-evaluator on a dataset.
+
+We provide a notebook to analyze the evaluation results: [`meta_eval.ipynb`](meta_eval.ipynb).
 
 
 ## Getting Started
@@ -24,35 +40,37 @@ Python >= 3.10 is required to run the code.
 `transformers` and `vllm` are required to run the code.
 
 ### Installation with CUDA 12.1
-- `pip3 install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu121`
-- `pip3 install transformers==4.44.0`
-- `pip3 install vllm==0.5.4`
-- `pip3 install flash-attn --no-build-isolation`
+```bash
+pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu121
+pip install transformers==4.44.0
+pip install vllm==0.5.4
+pip install flash-attn --no-build-isolation
+```
 
 ### Installation with CUDA 11.8 with the latest PyTorch
-- `pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118`
-- `pip3 install transformers`
-- `pip3 install https://github.com/vllm-project/vllm/releases/download/v0.5.4/vllm-0.5.4+cu118-cp310-cp310-manylinux1_x86_64.whl --extra-index-url https://download.pytorch.org/whl/cu118`
-- `pip3 install flash-attn --no-build-isolation`
-
-### Reproducing the Results
-
-To reproduce the results, you can simply run the `run.sh` script. The script will run the evaluation of the 15 base LLMs and the 25 protocols on the 4 datasets. The results will be saved in the `results/` directory.
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+pip install transformers
+pip install https://github.com/vllm-project/vllm/releases/download/v0.5.4/vllm-0.5.4+cu118-cp310-cp310-manylinux1_x86_64.whl --extra-index-url https://download.pytorch.org/whl/cu118
+pip install flash-attn --no-build-isolation
+```
 
 
 ## Folder Structure
 
-- `configs/`: Contains the configuration files for the evaluation.
-- `data/`: Contains the data used for the evaluation.
-- `insteval_bench/`: Contains the code for the evaluation.
-    - `./methods/`: Contains the code for the evaluation methods.
-        - `./registry.py`: Contains the registry of the evaluation methods.
-    - `./models/`: Contains the code for the LLM models.
-        - `./registry.py`: Contains the registry of the LLM models.
-- `misc/`: Miscellaneous files.
+- `configs/`: Contains the configuration files of different evaluation protocols.
+- `data/`: Contains the datasets used for the evaluation.
+- `insteval_bench/`: Contains the main source code.
+    - `./methods/`: Contains the code for the evaluation methods (protocols).
+    - `./models/`: Contains the code for the base LLM models.
+- `logs/`: Contains the logs of the evaluation.
+- `misc/`: Miscellaneous files for running meta-evaluation.
 - `prompts/`: Contains the prompts used for the evaluation.
 - `results/`: Contains the results of the evaluation.
+    - `./cache/`: Contains the cache indermediate results.
+    - `./meta_eval_cache/`: Contains the cache for the meta-evaluation.
     - `./outputs/`: Contains the raw outputs of the evaluation.
+- `tests/`: Contains simple tests for the codebase.
 
 ### Important Files
 
@@ -62,11 +80,22 @@ To reproduce the results, you can simply run the `run.sh` script. The script wil
 - `meta_eval.sh`: A script to run the meta-evaluation.
 - `helpers.py`: Contains helper functions.
 - `insteval_bench/base_llm.py`: Contains the base class for the LLM models. Each LLM model should inherit from this class.
-- `insteval_bench/evaluator.py`: Contains the evaluator.
+- `insteval_bench/evaluator.py`: Defines the main evaluator class.
 
-## Example: Evaluating a new LLM-evaluator
+## Run Experiments
 
-### Step 1: Add a new LLM
+### Reproducing the Results
+
+To reproduce the results, you can simply run the `run.sh` script. The script will run the evaluation of the 15 base LLMs and the 25 protocols on the 4 datasets. The results will be saved in the `results/` directory. `run.sh` also contains the information about the base LLMs and the 25 protocols.
+
+### Analyzing the Results
+
+The results of the evaluation are saved in the `results/` directory. The results are saved in the JSONL format.
+You can run `meta_eval.sh` to run the meta-evaluation.
+
+## Evaluating a new LLM-evaluator
+
+### Step 1: Add a new base LLM
 
 If you want to evaluate a new LLM, you need to add a new class in [`insteval_bench/models/`](insteval_bench/models/) that inherits from [`insteval_bench/base_llm.py`](insteval_bench/base_llm.py).
 Here is an example: [`insteval_bench/models/llama2.py`](insteval_bench/models/llama2.py).
@@ -80,9 +109,9 @@ To add a new LLM, it is usually enough to implement the `__init__` and any abstr
 
 When adding a new model, please register it using `insteval_bench.models.registry.register_model` in [`insteval_bench/models/registry.py`](insteval_bench/models/registry.py). Also, please import the new module/model in [`insteval_bench/models/__init__.py`](insteval_bench/models/__init__.py).
 
-### Step 2: Add a new evaluation method
+### Step 2: Add a new evaluation protocol
 
-Adding new evaluation methods is somewhat more involved. 
+Adding new evaluation methods (protocols) is somewhat more involved. 
 
 #### Evaluator
 

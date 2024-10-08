@@ -1,37 +1,3 @@
-CKPTS=(
-    meta-llama/Meta-Llama-3-70B-Instruct
-    meta-llama/Meta-Llama-3-8B-Instruct
-    meta-llama/Llama-2-70b-chat-hf
-    meta-llama/Llama-2-13b-chat-hf
-    meta-llama/Llama-2-7b-chat-hf
-    allenai/tulu-2-dpo-70b
-    allenai/tulu-2-70b
-    allenai/tulu-2-dpo-13b
-    allenai/tulu-2-13b
-    allenai/tulu-2-dpo-7b
-    allenai/tulu-2-7b
-    mistralai/Mistral-7B-Instruct-v0.1
-    mistralai/Mistral-7B-Instruct-v0.2
-    mistralai/Mixtral-8x7B-Instruct-v0.1
-    01-ai/Yi-1.5-34B-Chat
-    01-ai/Yi-1.5-9B-Chat
-    Qwen/Qwen1.5-72B-Chat
-    Qwen/Qwen1.5-32B-Chat
-    Qwen/Qwen2-72B-Instruct
-    CohereForAI/c4ai-command-r-plus
-    CohereForAI/c4ai-command-r-v01
-    google/gemma-7b-it
-    google/gemma-2b-it
-    mistralai/Mistral-7B-Instruct-v0.3
-    microsoft/Phi-3-small-8k-instruct
-    THUDM/glm-4-9b-chat
-    google/gemma-2-9b-it
-    google/gemma-2-27b-it
-    meta-llama/Meta-Llama-3.1-70B-Instruct
-    meta-llama/Meta-Llama-3.1-8B-Instruct
-    Qwen/Qwen2.5-72B-Instruct
-)  # model checkpoint
-
 NAMES=(
     llama-3-70b
     llama-3-8b
@@ -65,6 +31,40 @@ NAMES=(
     llama-3.1-8b
     qwen-2.5-72b
 )  # model name
+
+CKPTS=(
+    meta-llama/Meta-Llama-3-70B-Instruct
+    meta-llama/Meta-Llama-3-8B-Instruct
+    meta-llama/Llama-2-70b-chat-hf
+    meta-llama/Llama-2-13b-chat-hf
+    meta-llama/Llama-2-7b-chat-hf
+    allenai/tulu-2-dpo-70b
+    allenai/tulu-2-70b
+    allenai/tulu-2-dpo-13b
+    allenai/tulu-2-13b
+    allenai/tulu-2-dpo-7b
+    allenai/tulu-2-7b
+    mistralai/Mistral-7B-Instruct-v0.1
+    mistralai/Mistral-7B-Instruct-v0.2
+    mistralai/Mixtral-8x7B-Instruct-v0.1
+    01-ai/Yi-1.5-34B-Chat
+    01-ai/Yi-1.5-9B-Chat
+    Qwen/Qwen1.5-72B-Chat
+    Qwen/Qwen1.5-32B-Chat
+    Qwen/Qwen2-72B-Instruct
+    CohereForAI/c4ai-command-r-plus
+    CohereForAI/c4ai-command-r-v01
+    google/gemma-7b-it
+    google/gemma-2b-it
+    mistralai/Mistral-7B-Instruct-v0.3
+    microsoft/Phi-3-small-8k-instruct
+    THUDM/glm-4-9b-chat
+    google/gemma-2-9b-it
+    google/gemma-2-27b-it
+    meta-llama/Meta-Llama-3.1-70B-Instruct
+    meta-llama/Meta-Llama-3.1-8B-Instruct
+    Qwen/Qwen2.5-72B-Instruct
+)  # model checkpoint
 
 CLSS=(
     llama3vllm
@@ -100,28 +100,6 @@ CLSS=(
     hfvllm
 )  # model class
 
-CONFIG_DIRS=(
-    configs/default/pairwise_base
-    configs/default/pairwise_cot
-    configs/default/pairwise_metric
-    configs/default/pairwise_reference
-    configs/default/pairwise_metric_reference
-    configs/default/pairwise_synthesize
-    configs/default/pairwise_cot_finegrained
-    configs/default/pairwise_cot_finegrained_llama2
-    configs/default/pairwise_chateval_round_1
-    configs/default/pairwise_chateval_round_2
-    configs/default/pairwise_chateval_round_2_llama2
-    configs/default/pairwise_analysis_aggr_single_stage
-    configs/default/pairwise_analysis_aggr_single_stage_llama2
-    configs/default/pairwise_analysis_aggr
-    configs/default/pairwise_analysis_aggr_llama2
-    configs/default/pairwise_reference_gpt4
-    configs/default/pairwise_prepair
-    configs/default/sc/pairwise_cot_sc
-    configs/default/sc/pairwise_protocol_consistency
-)  # config dir
-
 CONFIGS=(
     base
     cot
@@ -143,6 +121,28 @@ CONFIGS=(
     self-consistency
     protocol-consistency
 )
+
+CONFIG_DIRS=(
+    configs/default/pairwise_base
+    configs/default/pairwise_cot
+    configs/default/pairwise_metric
+    configs/default/pairwise_reference
+    configs/default/pairwise_metric_reference
+    configs/default/pairwise_synthesize
+    configs/default/pairwise_cot_finegrained
+    configs/default/pairwise_cot_finegrained_llama2
+    configs/default/pairwise_chateval_round_1
+    configs/default/pairwise_chateval_round_2
+    configs/default/pairwise_chateval_round_2_llama2
+    configs/default/pairwise_analysis_aggr_single_stage
+    configs/default/pairwise_analysis_aggr_single_stage_llama2
+    configs/default/pairwise_analysis_aggr
+    configs/default/pairwise_analysis_aggr_llama2
+    configs/default/pairwise_reference_gpt4
+    configs/default/pairwise_prepair
+    configs/default/sc/pairwise_cot_sc
+    configs/default/sc/pairwise_protocol_consistency
+)  # config dir
 
 ALL_SELECTED_MODELS=(
     llama-3-70b
@@ -367,6 +367,8 @@ SELECTED_MODELS=(
     llama-2-70b
     llama-2-13b
     llama-2-7b
+    yi-1.5-34b
+    yi-1.5-9b
 )
 
 SELECTED_CONFIGS=(

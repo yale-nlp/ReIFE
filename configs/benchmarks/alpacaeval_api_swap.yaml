@@ -1,0 +1,17 @@
+eval_kwargs:
+  logprobs: 5
+  max_tokens: 1024
+  n: 1
+  temperature: 0.0
+  top_p: 1.0
+eval_method: base_pairwise_raw
+instruction_marker: INSTRUCTION
+max_input_len: 4000
+max_model_len: 4096
+output_marker: OUTPUT
+parse_method: alpacaeval_api
+parse_with_tokenizer: false
+pattern: Model \((\S+)\)
+prompt_method: alpacaeval_swap
+sys1_marker: M
+sys2_marker: m

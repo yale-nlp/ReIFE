@@ -1,0 +1,13 @@
+- name: 'base'
+  fdir: 'base_pairwise.pairwise_vanilla'
+  bidirectional: true
+# benchmark methods
+- name: 'alpacaeval'
+  fdir: base_pairwise_raw.alpacaeval
+  bidirectional: true
+- name: 'arena_hard'
+  fdir: base_pairwise.arena_hard
+  bidirectional: true
+- name: 'wildbench'
+  fdir: pairwise_wildbench.wildbench
+  bidirectional: true

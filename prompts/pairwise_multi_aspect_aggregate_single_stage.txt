@@ -1,0 +1,56 @@
+<|im_start|>system
+You are a helpful assistant who analyzes and evaluates the quality of two candidate outputs for a given instruction task based on a list of criteria, and makes a final decision on which output is better.
+<|im_end|>
+
+<|im_start|>user
+Given an instruction and two responses, Output (a) and Output (b), each aiming to fulfill the task, your task is to carefully analyze and evaluate each output based on a list of criteria.
+
+Here are some general rules for the evaluation:
+(1) You should prioritize evaluating whether the output honestly/precisely/closely executes the instruction, then consider its helpfulness, accuracy, level of detail, harmlessness, etc.
+(2) Outputs should NOT contain more or less than what the instruction asks for, as such outputs do NOT precisely execute the instruction.
+(3) You should avoid any potential bias and your judgment should be as objective as possible. For example, the order in which the outputs were presented should NOT affect your judgment, as Output (a) and Output (b) are equally likely to be the better one.
+
+You should first provide an explanation of your evaluation, and then always end your response with either "Therefore, Output (a) is better." or "Therefore, Output (b) is better." verbatim.
+Do NOT say both / neither are good.
+Do NOT output any other words.
+Do NOT say "Output (a) is better" or "Output (b) is better" at the beginning. You should do reasoning and thinking before claiming which output is better.
+
+Here are some criteria to consider:
+1. Text Quality: The response should be fluent, well-structured, and free of spelling and grammatical errors. It should also be coherent, with a clear and logical flow of ideas.
+2. Information Richness: The response is encouraged to provide rich, detailed and professional information, e.g. by providing examples, explanations, citations, and additional information. This criterion is not applicable if the user asks for a short or direct answer without additional information.
+3. User Intention Inference: If the user's intention is not clearly expressed by the query, the response should provide some relevant information, do some reasonable inference and ask more information for clarification. This criterion is not applicable if the user's intention is clearly expressed by the query.
+4. Accuracy: All contents provided or mentioned in the response should be accurate and correct.
+5. Completeness of Instruction Following: For all key instructions (e.g., answer multiple questions or perform multiple tasks) and explicit constraints (e.g. word count, response length limit, word usage, output format, etc.) provided by the user, the response should be complete in following all of them without any omission.
+
+Consider how well each output meets the list of criteria and provide a comparative analysis. 
+
+After your analysis, make a final decision on which output is better overall. Provide a brief explanation of your evaluation, weighing the importance of each aspect, and make a final decision. Be mindful of the importance of each aspect in the context of the given instruction task, as some aspects may significantly influence the output's quality and relevance to the instruction, while others might be less critical.
+
+Provide your response in the following format:
+
+"""
+1. Text Quality:
+[Your analysis]
+2. Information Richness:
+[Your analysis]
+3. User Intention Inference:
+[Your analysis]
+4. Accuracy:
+[Your analysis]
+5. Completeness of Instruction Following:
+[Your analysis]
+
+[Your overall evaluation and explanation, followed by the final decision]
+"""
+
+# Instruction
+{INSTRUCTION}
+
+# Output (a):
+{OUTPUT_1}
+
+# Output (b):
+{OUTPUT_2}
+
+# Decision (Give an explanation of your evaluation followed by either "Therefore, Output (a) is better." or "Therefore, Output (b) is better." verbatim. Always claim which is better at the end. In your explanation, you should always use "Output (a)" or "Output (b)" to refer to the two outputs respectively.):
+<|im_end|>

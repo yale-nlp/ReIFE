@@ -1,0 +1,20 @@
+eval_kwargs:
+  logprobs: 1
+  max_tokens: 1024
+  n: 1
+  metric_marker: CHECKLIST
+  temperature: 0.0
+  top_p: 1.0
+eval_method: pairwise_wildbench
+fdir_kwargs:
+  metric_dir: data/metrics/{dataset}_gpt4o.json
+instruction_marker: INSTRUCTION
+max_input_len: 3072
+max_model_len: 4096
+output_marker: OUTPUT
+parse_method: pairwise_wildbench
+parse_with_tokenizer: false
+pattern: Response \((\w)\)|Response (\w)
+prompt_method: wildbench
+sys1_marker: A
+sys2_marker: B

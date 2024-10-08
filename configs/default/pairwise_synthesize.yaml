@@ -1,0 +1,21 @@
+eval_kwargs:
+  explanation_marker: EXPLANATION
+  logprobs: 4
+  max_tokens: 64
+  n: 1
+  temperature: 0.0
+  top_p: 1.0
+eval_method: synthesize
+fdir_kwargs:
+  evaluator1_dir: results/{dataset}.{model}.base_pairwise.pairwise_cot.jsonl
+  evaluator2_dir: results/{dataset}.{model}.base_pairwise.pairwise_cot_swap.jsonl
+instruction_marker: INSTRUCTION
+max_input_len: 4000
+max_model_len: 4096
+output_marker: OUTPUT
+parse_method: synthesize
+parse_with_tokenizer: false
+pattern: Output \((\S+)\)
+prompt_method: synthesize
+sys1_marker: a
+sys2_marker: b

@@ -5,16 +5,9 @@ import numpy as np
 from tabulate import tabulate
 import yaml
 import krippendorff
-from collections import Counter
-import matplotlib.pyplot as plt
 import json
 import os
 import copy
-import matplotlib
-import seaborn as sns
-import pandas as pd
-from scipy import stats
-import math
 
 
 def highlight(table, axis=None, skip_header=True, is_max=True):
@@ -26,6 +19,15 @@ def highlight(table, axis=None, skip_header=True, is_max=True):
     if skip_header:
         header = table[0]
         table = table[1:]
+
+    # Convert all values to float and multiply by 100
+    for i in range(len(table)):
+        for j in range(1, len(table[0])):
+            try:
+                table[i][j] = float(table[i][j]) * 100
+            except:
+                pass
+            
     if axis == "row":
         for i, row in enumerate(table):
             row_values = [float(val) for val in row[1:]]
@@ -79,10 +81,10 @@ def latex_highlight(table, axis=None, skip_header=True, is_max=True):
     table = copy.deepcopy(table)
 
     def float_fmt(x):
-        return "0." + f"{float(x):.03f}".split(".")[1]
+        return f"{float(x) * 100:.01f}"
 
     def highlighting(x):
-        return f"\\textbf{{{float_fmt(x)}}}"
+        return f"\\textbf{{{x}}}"
 
     if skip_header:
         header = table[0]
@@ -157,7 +159,7 @@ def pairwise_compare(
         verbose: Whether to print verbose output.
 
     Returns:
-        None
+        tuple[float, float]: The accuracy and agreement.
     """
     if isinstance(evaluator1, str):
         evaluator1_responses = read_json(evaluator1)
@@ -222,7 +224,7 @@ def pairwise_meta_eval(
     return result
 
 
-def meta_eval_main(args):
+def meta_eval_main():
     parser = argparse.ArgumentParser("Run Pairwise Meta-Evaluation")
     parser.add_argument("--datasets", type=str, nargs="+", required=True)
     parser.add_argument(
@@ -270,7 +272,7 @@ def meta_eval_main(args):
         choices=["mean", "max", "min", "delta"],
     )
     parser.add_argument("--base_method", type=str, default="base")
-    args = parser.parse_args(args)
+    args = parser.parse_args()
     if args.debug:
         bugs = []
 
@@ -324,7 +326,7 @@ def meta_eval_main(args):
                     row += [results[evaluator][dataset]]
                 table.append(row)
             # table = highlight(table, axis="column")
-            print(tabulate(table, headers="firstrow", floatfmt=".3f"))
+            print(tabulate(table, headers="firstrow", floatfmt=".02f"))
 
         print("Human Evaluator Accuracies")
         print_table(human_model_accs)
@@ -509,7 +511,7 @@ def meta_eval_main(args):
                         )
                     )
                 table = highlight(table, axis="column")
-                print(tabulate(table, headers="firstrow", floatfmt=".3f"))
+                print(tabulate(table, headers="firstrow", floatfmt=".02f"))
 
         elif args.aggregate_methods and args.aggregate_datasets:
 
@@ -561,7 +563,7 @@ def meta_eval_main(args):
                         )
                     )
                 table = highlight(table, axis="column")
-                print(tabulate(table, headers="firstrow", floatfmt=".3f"))
+                print(tabulate(table, headers="firstrow", floatfmt=".02f"))
 
         elif args.aggregate_models and args.aggregate_datasets:
 
@@ -613,7 +615,7 @@ def meta_eval_main(args):
                         )
                     )
                 table = highlight(table, axis="column")
-                print(tabulate(table, headers="firstrow", floatfmt=".3f"))
+                print(tabulate(table, headers="firstrow", floatfmt=".02f"))
 
         elif args.aggregate_methods:
 
@@ -676,7 +678,7 @@ def meta_eval_main(args):
                         )
                     )
                 table = highlight(table, axis="column")
-                print(tabulate(table, headers="firstrow", floatfmt=".3f"))
+                print(tabulate(table, headers="firstrow", floatfmt=".02f"))
 
         elif args.aggregate_models:
 
@@ -730,7 +732,7 @@ def meta_eval_main(args):
                         )
                     )
                 table = highlight(table, axis="column")
-                print(tabulate(table, headers="firstrow", floatfmt=".3f"))
+                print(tabulate(table, headers="firstrow", floatfmt=".02f"))
 
         elif args.aggregate_datasets:
             if args.transpose:
@@ -785,7 +787,7 @@ def meta_eval_main(args):
                             )
                         )
                     table = highlight(table)
-                    print(tabulate(table, headers="firstrow", floatfmt=".3f"))
+                    print(tabulate(table, headers="firstrow", floatfmt=".02f"))
 
             else:
 
@@ -839,7 +841,7 @@ def meta_eval_main(args):
                             )
                         )
                     table = highlight(table)
-                    print(tabulate(table, headers="firstrow", floatfmt=".3f"))
+                    print(tabulate(table, headers="firstrow", floatfmt=".02f"))
 
         else:
 
@@ -856,7 +858,7 @@ def meta_eval_main(args):
                         table[1:], key=lambda x: x[3], reverse=True
                     )
                 table = highlight(table)
-                print(tabulate(table, headers="firstrow", floatfmt=".3f"))
+                print(tabulate(table, headers="firstrow", floatfmt=".02f"))
 
         print("Human Evaluator Accuracies")
         if args.table_dir is not None:

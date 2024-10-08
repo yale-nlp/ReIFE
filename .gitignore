@@ -1,3 +1,5 @@
 __pycache__
 keys/*
 !keys/README.txt
+tmp.py
+hf_local_data/

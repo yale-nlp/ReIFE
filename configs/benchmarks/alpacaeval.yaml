@@ -1,0 +1,17 @@
+eval_kwargs:
+  logprobs: 5
+  max_tokens: 64
+  n: 1
+  temperature: 0.0
+  top_p: 1.0
+eval_method: base_pairwise_raw
+instruction_marker: INSTRUCTION
+max_input_len: 4000
+max_model_len: 4096
+output_marker: OUTPUT
+parse_method: base_pairwise_logprob
+parse_with_tokenizer: true
+pattern: Model \((\S+)\)
+prompt_method: alpacaeval
+sys1_marker: m
+sys2_marker: M
