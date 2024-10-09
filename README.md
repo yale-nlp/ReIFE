@@ -43,6 +43,7 @@ Our repo contains a large number of raw result files under the `results/` direct
 ```bash
 git clone --filter=blob:none --no-checkout git@github.com:yale-nlp/ReIFE.git
 cd ReIFE
+git sparse-checkout init --no-cone
 bash sparse_checkout.sh
 ```
 
