@@ -1,6 +1,6 @@
 # ReIFE
 
-This repo contains the code for our work "Re-evaluating Instruction-Following Evaluation with Large Language Models".
+This repo contains the code for our work "ReIFE: Re-evaluating Instruction-Following Evaluation".
 
 ## Quick Links
 
