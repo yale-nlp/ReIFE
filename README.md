@@ -44,7 +44,9 @@ Our repo contains a large number of raw result files under the `results/` direct
 git clone --filter=blob:none --no-checkout git@github.com:yale-nlp/ReIFE.git
 cd ReIFE
 git sparse-checkout init --no-cone
-bash sparse_checkout.sh
+echo "/*" > .git/info/sparse-checkout
+echo '!/results/' >> .git/info/sparse-checkout
+git read-tree -mu HEAD
 ```
 
 ### Installation
