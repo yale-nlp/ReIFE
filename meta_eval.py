@@ -1,4 +1,4 @@
-from insteval_bench.utils import read_json, get_dataset_path
+from ReIFE.utils import read_json, get_dataset_path
 import argparse
 from collections import defaultdict
 import numpy as np

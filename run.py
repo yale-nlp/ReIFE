@@ -1,9 +1,9 @@
 import argparse
-from insteval_bench.evaluator import PairwiseEvaluator
-from insteval_bench.methods import get_method, get_parser
-from insteval_bench.models import get_model
-from insteval_bench.utils import get_dataset_path
-from insteval_bench.base_llm import BaseLLM, BaseVLLM, BaseLLMAPI
+from ReIFE.evaluator import PairwiseEvaluator
+from ReIFE.methods import get_method, get_parser
+from ReIFE.models import get_model
+from ReIFE.utils import get_dataset_path
+from ReIFE.base_llm import BaseLLM, BaseVLLM, BaseLLMAPI
 from tqdm import tqdm
 from functools import partial
 from transformers import AutoTokenizer

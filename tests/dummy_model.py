@@ -1,4 +1,4 @@
-from insteval_bench.base_llm import BaseLLMAPI
+from ReIFE.base_llm import BaseLLMAPI
 
 
 class DummyAPI(BaseLLMAPI):

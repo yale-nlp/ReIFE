@@ -1,6 +1,6 @@
-# insteval_bench
+# ReIFE
 
-This repo contains the code for our work "Measuring Progress in Evaluating Instruction Following with Large Language Models".
+This repo contains the code for our work "Re-evaluating Instruction-Following Evaluation with Large Language Models".
 
 ## Quick Links
 
@@ -20,7 +20,7 @@ This repo contains the code for our work "Measuring Progress in Evaluating Instr
 
 ## Datasets
 
-The evaluation results of our work can be accessed as a Hugging Face Dataset: [yale-nlp/InstEvalBench](https://huggingface.co/datasets/yale-nlp/InstEvalBench).
+The evaluation results of our work can be accessed as a Hugging Face Dataset: [yale-nlp/ReIFE](https://huggingface.co/datasets/yale-nlp/ReIFE).
 
 It contains two subsets: `src` and `predictions`. The `src` subset contains the source datasets for evaluating LLM-evaluators. The `predictions` subset contains the evaluation results of the LLM-evaluators.
 
@@ -60,7 +60,7 @@ pip install flash-attn --no-build-isolation
 
 - `configs/`: Contains the configuration files of different evaluation protocols.
 - `data/`: Contains the datasets used for the evaluation.
-- `insteval_bench/`: Contains the main source code.
+- `ReIFE/`: Contains the main source code.
     - `./methods/`: Contains the code for the evaluation methods (protocols).
     - `./models/`: Contains the code for the base LLM models.
 - `logs/`: Contains the logs of the evaluation.
@@ -79,8 +79,8 @@ pip install flash-attn --no-build-isolation
 - `meta_eval.py`: The file to run the meta-evaluation.
 - `meta_eval.sh`: A script to run the meta-evaluation.
 - `helpers.py`: Contains helper functions.
-- `insteval_bench/base_llm.py`: Contains the base class for the LLM models. Each LLM model should inherit from this class.
-- `insteval_bench/evaluator.py`: Defines the main evaluator class.
+- `ReIFE/base_llm.py`: Contains the base class for the LLM models. Each LLM model should inherit from this class.
+- `ReIFE/evaluator.py`: Defines the main evaluator class.
 
 ## Run Experiments
 
@@ -97,17 +97,17 @@ You can run `meta_eval.sh` to run the meta-evaluation.
 
 ### Step 1: Add a new base LLM
 
-If you want to evaluate a new LLM, you need to add a new class in [`insteval_bench/models/`](insteval_bench/models/) that inherits from [`insteval_bench/base_llm.py`](insteval_bench/base_llm.py).
-Here is an example: [`insteval_bench/models/llama2.py`](insteval_bench/models/llama2.py).
+If you want to evaluate a new LLM, you need to add a new class in [`ReIFE/models/`](ReIFE/models/) that inherits from [`ReIFE/base_llm.py`](ReIFE/base_llm.py).
+Here is an example: [`ReIFE/models/llama2.py`](ReIFE/models/llama2.py).
 
-Each LLM should be a child class of `insteval_bench.base_llm.BaseLLM`, `insteval_bench.base_llm.BaseVLLM` or `insteval_bench.base_llm.BaseLLMAPI`
+Each LLM should be a child class of `ReIFE.base_llm.BaseLLM`, `ReIFE.base_llm.BaseVLLM` or `ReIFE.base_llm.BaseLLMAPI`
 `BaseLLM` is in essence a wrapper around the `transformers` library, `BaseVLLM` is a wrapper around the `vllm` library.
 `BaseVLLM` is more suitable for *decoding* tasks because of its efficiency, while `BaseLLM` is more suitable for *scoring* tasks because of its transparency. 
 `BaseLLMAPI` defines the interface for running LLMs through an API (e.g., OpenAI's API).
 It provides basic functionalities such as multi-threading and retrying.
 To add a new LLM, it is usually enough to implement the `__init__` and any abstract methods in the base class.
 
-When adding a new model, please register it using `insteval_bench.models.registry.register_model` in [`insteval_bench/models/registry.py`](insteval_bench/models/registry.py). Also, please import the new module/model in [`insteval_bench/models/__init__.py`](insteval_bench/models/__init__.py).
+When adding a new model, please register it using `ReIFE.models.registry.register_model` in [`ReIFE/models/registry.py`](ReIFE/models/registry.py). Also, please import the new module/model in [`ReIFE/models/__init__.py`](ReIFE/models/__init__.py).
 
 ### Step 2: Add a new evaluation protocol
 
@@ -115,7 +115,7 @@ Adding new evaluation methods (protocols) is somewhat more involved.
 
 #### Evaluator
 
-First let's look at the [evaluator](insteval_bench/evaluator.py), which is the main class for the evaluation:
+First let's look at the [evaluator](ReIFE/evaluator.py), which is the main class for the evaluation:
 
 ```python
 class PairwiseEvaluator:
@@ -180,7 +180,7 @@ def pairwise_eval(
 
 This function takes an evaluation function `eval_fn` as a callback function. And it takes a parsing function `parse_fn` as an optional callback function. The evaluator will call the `eval_fn` with `self.model` to run the evaluation. The `parse_fn` is used to parse the output of the evaluation function.
 
-Here is an example of an evaluation function ([`insteval_bench/methods/base_pairwise.base_pairwise_eval`](insteval_bench/methods/base_pairwise.base_pairwise_eval)):
+Here is an example of an evaluation function ([`ReIFE/methods/base_pairwise.base_pairwise_eval`](ReIFE/methods/base_pairwise.base_pairwise_eval)):
 
 ```python
 def base_pairwise_eval(
@@ -227,7 +227,7 @@ def base_pairwise_eval(
 
 Note that you can extend the `base_pairwise_eval` function to include additional arguments.
 
-Here is an example of a parsing function ([`insteval_bench/methods/base_pairwise.base_pairwise_parse`](insteval_bench/methods/base_pairwise.base_pairwise_parse)):
+Here is an example of a parsing function ([`ReIFE/methods/base_pairwise.base_pairwise_parse`](ReIFE/methods/base_pairwise.base_pairwise_parse)):
 
 ```python
 def base_pairwise_parse(
@@ -258,7 +258,7 @@ You have even more flexibility with the parsing function, as long as the return 
 
 #### Evaluation Method and Parser
 
-To add a new evaluation/parsing method, add them in a new or existing file in [`insteval_bench/methods/`](insteval_bench/methods/). Then register them using `insteval_bench.methods.registry.register_method` and `insteval_bench.methods.registry.register_parser` in [`insteval_bench/methods/registry.py`](insteval_bench/methods/registry.py). Also, please import the new module/method in [`insteval_bench/methods/__init__.py`](insteval_bench/methods/__init__.py). Creating new files for new methods is recommended for better organization.
+To add a new evaluation/parsing method, add them in a new or existing file in [`ReIFE/methods/`](ReIFE/methods/). Then register them using `ReIFE.methods.registry.register_method` and `ReIFE.methods.registry.register_parser` in [`ReIFE/methods/registry.py`](ReIFE/methods/registry.py). Also, please import the new module/method in [`ReIFE/methods/__init__.py`](ReIFE/methods/__init__.py). Creating new files for new methods is recommended for better organization.
 
 #### Adding Prompts
 
@@ -309,7 +309,7 @@ python run.py \
     --download_dir $HOME/.cache/huggingface/hub \
     --verbose \
     --config_dir configs/pairwise_base.yaml \
-    --datasets llmbar_natural llmbar_adversarial mtbench
+    --datasets llmbar_natural llmbar_adversarial mtbench instrusum
 ```
 
 Note that you can use the `--config_dir` option to specify the configuration file. The configuration file is a YAML file that contains the configuration for the evaluation. Here is an example of a configuration file:
@@ -354,7 +354,7 @@ python run.py \
     --batch_size 32 \
     --parallel_size 8 \
     --config_dir configs/gpt/pairwise_base.yaml \
-    --datasets llmbar_natural llmbar_adversarial mtbench instrusum_acc \
+    --datasets llmbar_natural llmbar_adversarial mtbench instrusum \
     --key_path keys/openai.key \
     --account_path keys/openai.org
 ```
@@ -367,7 +367,7 @@ To run the meta-evaluation, you can use the `meta_eval.py` script. Here is an ex
 ```bash
 python meta_eval.py \
     --config_dir misc/evaluators.yaml \
-    --datasets llmbar_natural llmbar_adversarial mtbench
+    --datasets llmbar_natural llmbar_adversarial mtbench instrusum
 ```
 
 The `evaluators.yaml` file is a YAML file that contains the configuration for the meta-evaluation. Here is an example of a configuration file:

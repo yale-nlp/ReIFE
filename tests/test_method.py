@@ -1,9 +1,9 @@
 import unittest
 
 from .dummy_model import DummyAPI
-from insteval_bench.evaluator import PairwiseEvaluator
-from insteval_bench.methods import get_method, get_parser
-from insteval_bench.utils import get_dataset_path
+from ReIFE.evaluator import PairwiseEvaluator
+from ReIFE.methods import get_method, get_parser
+from ReIFE.utils import get_dataset_path
 from functools import partial
 import os
 import yaml

@@ -1,7 +1,7 @@
-from insteval_bench.evaluator import PairwiseEvaluator
-from insteval_bench.methods import get_method, get_parser
-from insteval_bench.models import get_model
-from insteval_bench.utils import get_dataset_path
+from ReIFE.evaluator import PairwiseEvaluator
+from ReIFE.methods import get_method, get_parser
+from ReIFE.models import get_model
+from ReIFE.utils import get_dataset_path
 from functools import partial
 from helper import model_info, method_info, parser_info
 import os

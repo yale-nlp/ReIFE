@@ -1,5 +1,5 @@
-from insteval_bench.methods import list_methods, method_info, list_parsers, parser_info
-from insteval_bench.models import list_models, model_info
+from ReIFE.methods import list_methods, method_info, list_parsers, parser_info
+from ReIFE.models import list_models, model_info
 import argparse
 
 
