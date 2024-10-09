@@ -4,8 +4,8 @@ This repo contains the code for our work "ReIFE: Re-evaluating Instruction-Follo
 
 ## Quick Links
 
-- [Getting Started](#getting-started)
 - [Datasets](#datasets)
+- [Getting Started](#getting-started)
 - [Folder Structure](#folder-structure)
     - [Important Files](#important-files)
 - [Evaluating a new LLM-evaluator](#evaluating-a-new-llm-evaluator)
@@ -36,10 +36,22 @@ We provide a notebook to analyze the evaluation results: [`meta_eval.ipynb`](met
 
 ## Getting Started
 
+### Clone the Repository without result files
+
+Our repo contains a large number of raw result files under the `results/` directory. If you want to clone the repository without the result files, you can run the following commands (may not work with git versions older than 2.25):
+
+```bash
+git clone --filter=blob:none --no-checkout git@github.com:yale-nlp/ReIFE.git
+cd ReIFE
+bash sparse_checkout.sh
+```
+
+### Installation
+
 Python >= 3.10 is required to run the code.
 `transformers` and `vllm` are required to run the code.
 
-### Installation with CUDA 12.1
+#### Installation with CUDA 12.1
 ```bash
 pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu121
 pip install transformers==4.44.0
@@ -47,7 +59,7 @@ pip install vllm==0.5.4
 pip install flash-attn --no-build-isolation
 ```
 
-### Installation with CUDA 11.8 with the latest PyTorch
+#### Installation with CUDA 11.8 with the latest PyTorch
 ```bash
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 pip install transformers
