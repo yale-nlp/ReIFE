@@ -1,6 +1,8 @@
 # ReIFE
 
+
 This repo contains the code for our work ["ReIFE: Re-evaluating Instruction-Following Evaluation"](https://arxiv.org/abs/2410.07069).
+![alt text](Figure_1.jpg)
 
 ## Quick Links
 
