@@ -1,7 +1,9 @@
 # ReIFE
 
-This repo contains the code for our work "ReIFE: Re-evaluating Instruction-Following Evaluation".
+
+This repo contains the code for our work ["ReIFE: Re-evaluating Instruction-Following Evaluation"](https://arxiv.org/abs/2410.07069).
 ![alt text](Figure_1.jpg)
+
 ## Quick Links
 
 - [Datasets](#datasets)
@@ -44,7 +46,9 @@ Our repo contains a large number of raw result files under the `results/` direct
 git clone --filter=blob:none --no-checkout git@github.com:yale-nlp/ReIFE.git
 cd ReIFE
 git sparse-checkout init --no-cone
-bash sparse_checkout.sh
+echo "/*" > .git/info/sparse-checkout
+echo '!/results/' >> .git/info/sparse-checkout
+git read-tree -mu HEAD
 ```
 
 ### Installation
