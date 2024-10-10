@@ -1,7 +1,7 @@
 # ReIFE
 
 This repo contains the code for our work "ReIFE: Re-evaluating Instruction-Following Evaluation".
-
+![alt text](Figure_1.jpg)
 ## Quick Links
 
 - [Datasets](#datasets)
